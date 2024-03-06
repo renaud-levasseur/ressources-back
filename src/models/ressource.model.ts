@@ -1,7 +1,8 @@
 import { Model, DataTypes } from 'sequelize';
 import sequelize from '../../sequelize.config';
-
-const RessourceType = require('./ressourceType.model');
+import RessourceType from './ressourceType.model';
+// const RessourceType = require('./ressourceType.model');
+// const type = RessourceType;
 
 enum Visibility {
     PUBLIC = 'public',
@@ -10,7 +11,7 @@ enum Visibility {
 }
 
 class Ressource extends Model {
-    public id!: number;
+    public ressourceId!: number;
     public title!: string;
     // public content!: string;
     // public createdAt!: Date;
@@ -21,7 +22,7 @@ class Ressource extends Model {
 
 Ressource.init(
     {
-        id: {
+        ressourceId: {
             type: DataTypes.INTEGER.UNSIGNED,
             autoIncrement: true,
             primaryKey: true,
@@ -41,10 +42,4 @@ Ressource.init(
 
 Ressource.hasOne(RessourceType, { as: 'ressourceType', foreignKey: 'ressourceTypeId' });
 
-sequelize.sync({ force: false }).then(() => {
-    console.log('Ressource table crée!');
- }).catch((error) => {
-    console.error('Unable to create table : Ressource ', error);
- });
-
-module.exports = Ressource;
+export default Ressource;

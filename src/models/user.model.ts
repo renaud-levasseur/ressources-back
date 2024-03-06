@@ -53,10 +53,4 @@ User.init(
     }
 );
 
-sequelize.sync({ force: false }).then(() => {
-    console.log('User table crée!');
- }).catch((error) => {
-    console.error('Unable to create table : User ', error);
- });
-
- module.exports = User;
+export default User;

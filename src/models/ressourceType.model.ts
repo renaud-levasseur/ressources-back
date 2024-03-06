@@ -2,14 +2,14 @@ import { Model, DataTypes } from 'sequelize';
 import sequelize from '../../sequelize.config';
 
 class RessourceType extends Model {
-    public id!: number;
+    public ressourceTypeId!: number;
     public libelle!: string;
     public description?: string;
 }
 
 RessourceType.init(
     {
-        id: {
+        ressourceTypeId: {
             type: DataTypes.INTEGER.UNSIGNED,
             autoIncrement: true,
             primaryKey: true,
@@ -31,10 +31,4 @@ RessourceType.init(
     }
 );
 
-sequelize.sync({ force: false }).then(() => {
-    console.log('RessourceType table crée!');
- }).catch((error) => {
-    console.error('Unable to create table : RessourceType ', error);
- });
-
-module.exports = RessourceType;
+export default RessourceType;
