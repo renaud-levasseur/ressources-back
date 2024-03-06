@@ -24,11 +24,11 @@ User.init(
             primaryKey: true,
         },
         username: {
-            type: new DataTypes.STRING(128),
+            type: new DataTypes.STRING(30),
             allowNull: false,
         },
         email: {
-            type: new DataTypes.STRING(128),
+            type: new DataTypes.STRING(30),
             allowNull: false,
             unique: true,
             validate: {
@@ -36,7 +36,7 @@ User.init(
             },
         },
         password: {
-            type: new DataTypes.STRING(128),
+            type: new DataTypes.STRING(30),
             allowNull: false,
         },
         role: {
