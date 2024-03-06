@@ -1,48 +1,54 @@
-import { Sequelize, DataTypes, Model } from "sequelize";
+import { Model, DataTypes } from 'sequelize';
+import sequelize from '../../sequelize.config';
 
-export enum UserRole {
+enum UserRole {
     SUPERADMIN = 'superadmin',
     ADMIN = 'admin',
     MODERATOR = 'moderator',
-    CITIZEN_USER = 'citizen user'
+    CITIZEN = 'citizen',
 }
 
-export interface UserAttributes {
-    id: number;
-    username: string;
-    email: string;
-    password: string;
-    role: UserRole;
+class User extends Model {
+    public id!: number;
+    public username!: string;
+    public email!: string;
+    public password!: string;
+    public role!: UserRole;
 }
 
-export interface UserModel extends Model<UserAttributes>, UserAttributes {}
-
-export const User = (sequelize: Sequelize) => {
-    const UserModel = sequelize.define<UserModel>('User', {
-        id: { 
-            type: DataTypes.INTEGER,  
-            primaryKey: true,  
-            allowNull: false,   
-            autoIncrement: true 
+User.init(
+    {
+        id: {
+            type: DataTypes.INTEGER.UNSIGNED,
+            autoIncrement: true,
+            primaryKey: true,
         },
-        username: { 
-            type: DataTypes.STRING(30),  
-            unique: true,
-            allowNull: false
+        username: {
+            type: new DataTypes.STRING(30),
+            allowNull: false,
         },
         email: {
-            type: DataTypes.STRING(30),
+            type: new DataTypes.STRING(30),
+            allowNull: false,
             unique: true,
-            allowNull: false
+            validate: {
+                isEmail: true,
+            },
         },
         password: {
-            type: DataTypes.STRING(30),
-            allowNull: false
+            type: new DataTypes.STRING(30),
+            allowNull: false,
         },
         role: {
-            type: DataTypes.ENUM(UserRole.SUPERADMIN, UserRole.ADMIN, UserRole.MODERATOR, UserRole.CITIZEN_USER),
-            defaultValue: UserRole.CITIZEN_USER
-        }, 
-        
-    })
-};
+            type: DataTypes.ENUM(...Object.values(UserRole)),
+            allowNull: false,
+            defaultValue: UserRole.CITIZEN,
+        },
+    },
+    {
+        sequelize,
+        modelName: 'User',
+    }
+);
+
+export default User;
