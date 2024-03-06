@@ -26,6 +26,8 @@ RessourceType.init(
     {
         sequelize,
         modelName: 'RessourceType',
+        tableName: 'RessourceType',
+        timestamps: false
     }
 );
 
