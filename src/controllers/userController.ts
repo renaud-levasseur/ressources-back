@@ -6,6 +6,13 @@ const sequelize = new Sequelize(sequelizeConfig);
 
 export const createUser = async (req: Request, res: Response) => {
     try {
+
+        // const existingUser = await sequelize.models.User.findOne({ where: { name: req.body.name, email:  req.body.email } });
+
+        // if (existingUser) {
+            
+        // }
+
         const newUser = await  sequelize.models.User.create(req.body);
         res.status(201).json({ message: 'Utilisateur crée avec succès !', data: newUser });
     } catch (error) {
