@@ -17,6 +17,10 @@ app.get('/', (_req: Request, res: Response) => {
   res.send('Hello World!');
 });
 
+// Importation du router utilisateur.
+import userRouter from './routes/user.router';
+app.use(userRouter);
+
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
