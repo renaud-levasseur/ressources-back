@@ -47,4 +47,4 @@ sequelize.sync({ force: false }).then(() => {
     console.error('Unable to create table : Ressource ', error);
  });
 
-module.exports = Ressource;
+export default Ressource;

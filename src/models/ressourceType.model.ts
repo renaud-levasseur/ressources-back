@@ -31,10 +31,4 @@ RessourceType.init(
     }
 );
 
-sequelize.sync({ force: false }).then(() => {
-    console.log('RessourceType table crée!');
- }).catch((error) => {
-    console.error('Unable to create table : RessourceType ', error);
- });
-
-module.exports = RessourceType;
+export default RessourceType;
