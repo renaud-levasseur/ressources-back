@@ -34,6 +34,8 @@ Ressource.init(
     {
         sequelize,
         modelName: 'Ressource',
+        tableName: 'Ressource',
+        timestamps: false
     }
 );
 
