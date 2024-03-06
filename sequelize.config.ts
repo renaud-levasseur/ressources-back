@@ -1,11 +1,5 @@
-import { Options, Sequelize } from "sequelize";
+import { Sequelize } from "sequelize";
 
-const db = new Sequelize({
-  dialect: "mysql",
-  host: "mysql-wrenoulleau.alwaysdata.net",
-  username: "280590_admin",
-  password: "Ress@2024!",
-  database: "wrenoulleau_ressources",
-});
+const sequelize = new Sequelize('mysql://280590_admin:Ress@2024!@localhost:3306/wrenoulleau_ressources');
 
-export default db;
+export default sequelize;

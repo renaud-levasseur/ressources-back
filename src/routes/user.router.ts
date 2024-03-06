@@ -4,3 +4,4 @@ import { createUser } from "../controllers/user.controller";
 const router = express.Router();
 
 router.post('/create-user', createUser);
+//TODO : Add other routes
