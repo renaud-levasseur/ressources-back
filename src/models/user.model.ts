@@ -48,6 +48,8 @@ User.init(
     {
         sequelize,
         modelName: 'User',
+        tableName: 'User',
+        timestamps: false
     }
 );
 

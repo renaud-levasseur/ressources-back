@@ -1,10 +1,13 @@
 import express, { Request, Response } from 'express';
 import sequelize from '../sequelize.config';
 
+
 const app = express();
 const bodyParser = require('body-parser');
 
 const port = 3000;
+
+require('./models/user.model');
 
 app.use(bodyParser.json());
 

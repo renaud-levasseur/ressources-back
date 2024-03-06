@@ -29,6 +29,33 @@ export const getUsers = async (_req: Request, res: Response) => {
     }
 };
 
+export const getUserById = async (req: Request, res: Response) => {
+    const id = parseInt(req.params.id);
+    const user = await User.findByPk(id);
+    
+    if (!user) {
+        return res.status(404).json({message:'Cet utilisateur est introuvable.'});
+    } else {
+        res.send(user);
+    }
+};
+
+export const updateUser = async (req: Request, res: Response) => {
+    const id = parseInt(req.params.id);
+    const user = await User.findByPk(id);
+
+    if (!user) {
+        return res.status(404).json({ message: "L'utilisateur demandé n'a pas été trouvé."});
+    }
+    try{
+        await user.update(req.body);
+        res.json(user);
+    }catch(error) {
+        console.log(error);
+        res.status(400).json({message:"Erreur lors de la modification de l'utilisateur"});
+    }
+};
+
 export const deleteUser = async (req: Request, res: Response) => {
     try {
         const id = req.params.id;
