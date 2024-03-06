@@ -4,8 +4,8 @@
   "description": "",
   "scripts": {
     "test": "jest",
-    "start": "ts-node server.ts",
-    "dev": "ts-node-dev --respawn --transpileOnly src/server.ts"
+    "start": "node dist/server.js",
+    "dev": "ts-node-dev --respawn --transpile-only src/server.ts"
   },
   "keywords": [],
   "author": "",

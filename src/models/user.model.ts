@@ -1,5 +1,5 @@
 import { Model, DataTypes } from 'sequelize';
-import sequelizeConfig from '../../sequelize.config';
+import db from '../../sequelize.config';
 
 
 enum UserRole {
@@ -47,7 +47,7 @@ User.init(
         },
     },
     {
-        sequelizeConfig,
+        db,
         modelName: 'User',
     }
 );
