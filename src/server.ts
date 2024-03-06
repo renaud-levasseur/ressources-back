@@ -1,6 +1,9 @@
 import express, { Request, Response } from 'express';
 import sequelize from '../sequelize.config';
 
+const RessourceType = require('./models/ressourceType.model');
+const Ressource = require('./models/ressource.model');
+
 const app = express();
 const bodyParser = require('body-parser');
 
