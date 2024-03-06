@@ -2,14 +2,14 @@ import { Model, DataTypes } from 'sequelize';
 import sequelize from '../../sequelize.config';
 
 class RessourceType extends Model {
-    public id!: number;
+    public ressourceTypeId!: number;
     public libelle!: string;
     public description?: string;
 }
 
 RessourceType.init(
     {
-        id: {
+        ressourceTypeId: {
             type: DataTypes.INTEGER.UNSIGNED,
             autoIncrement: true,
             primaryKey: true,
