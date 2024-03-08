@@ -4,17 +4,14 @@ import User from '../models/user.model';
 export const createUser = async (req: Request, res: Response) => {
     try {
         const {username, email} = req.body;
-        // vérifie si l'utilisateur existe déjà
         const existingUser = await User.findOne({ where: { username, email } });
         if (existingUser) {
             return res.status(409).json({ message: 'Un utilisateur avec le même nom d\'utilisateur ou la même adresse e-mail existe déjà.' });
         }
 
-        // Crée un nouvel utilisateur
         const newUser = await User.create(req.body);
         res.status(201).json({ message: 'Utilisateur créé avec succès !', data: newUser });
     } catch (error) {
-        console.error(error);
         res.status(400).json({ message: 'La création de l\'utilisateur a échoué.' });
     }
 };
