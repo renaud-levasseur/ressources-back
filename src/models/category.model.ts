@@ -1,16 +1,16 @@
 import { Model, DataTypes } from 'sequelize';
 import sequelize from '../../sequelize.config';
-import Ressource from './ressource.model';
+import RessourceCategory from './ressourceCategory.model';
 
-class RessourceType extends Model {
-    public ressourceTypeId!: number;
+class Category extends Model {
+    public categoryId!: number;
     public name!: string;
     public description?: string;
 }
 
-RessourceType.init(
+Category.init(
     {
-        ressourceTypeId: {
+        categoryId: {
             type: DataTypes.INTEGER.UNSIGNED,
             autoIncrement: true,
             primaryKey: true,
@@ -26,12 +26,12 @@ RessourceType.init(
     },
     {
         sequelize,
-        modelName: 'RessourceType',
-        tableName: 'RessourceType',
+        modelName: 'Category',
+        tableName: 'Category',
         timestamps: false
     }
 );
 
-RessourceType.hasMany(Ressource, { foreignKey: 'ressourceTypeId' });
+Category.hasMany(RessourceCategory, { foreignKey: 'categoryId' });
 
-export default RessourceType;
+export default Category;

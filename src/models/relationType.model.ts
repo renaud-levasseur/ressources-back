@@ -2,15 +2,15 @@ import { Model, DataTypes } from 'sequelize';
 import sequelize from '../../sequelize.config';
 import Ressource from './ressource.model';
 
-class RessourceType extends Model {
-    public ressourceTypeId!: number;
+class RelationType extends Model {
+    public relationTypeId!: number;
     public name!: string;
     public description?: string;
 }
 
-RessourceType.init(
+RelationType.init(
     {
-        ressourceTypeId: {
+        relationTypeId: {
             type: DataTypes.INTEGER.UNSIGNED,
             autoIncrement: true,
             primaryKey: true,
@@ -26,12 +26,12 @@ RessourceType.init(
     },
     {
         sequelize,
-        modelName: 'RessourceType',
-        tableName: 'RessourceType',
+        modelName: 'RelationType',
+        tableName: 'RelationType',
         timestamps: false
     }
 );
 
-RessourceType.hasMany(Ressource, { foreignKey: 'ressourceTypeId' });
+RelationType.hasMany(Ressource, { foreignKey: 'relationTypeId' });
 
-export default RessourceType;
+export default RelationType;

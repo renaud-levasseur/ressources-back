@@ -1,8 +1,7 @@
 import { Model, DataTypes } from 'sequelize';
 import sequelize from '../../sequelize.config';
-import RessourceType from './ressourceType.model';
-// const RessourceType = require('./ressourceType.model');
-// const type = RessourceType;
+import File from './file.model';
+import RessourceCategory from './ressourceCategory.model';
 
 enum Visibility {
     PUBLIC = 'public',
@@ -13,11 +12,11 @@ enum Visibility {
 class Ressource extends Model {
     public ressourceId!: number;
     public title!: string;
-    // public content!: string;
-    // public createdAt!: Date;
-    // public visibility!: Visibility;
-    // public isValid!: boolean;
-    // public isDraft!: boolean;
+    public content!: string;
+    public createdAt!: Date;
+    public visibility!: Visibility;
+    public isValid!: boolean;
+    public isDraft!: boolean;
 }
 
 Ressource.init(
@@ -31,6 +30,26 @@ Ressource.init(
             type: DataTypes.STRING(30),
             allowNull: false,
         },
+        content: {
+            type: DataTypes.STRING(30),
+            allowNull: false,
+        },
+        createdAt: {
+            type: DataTypes.DATE,
+            allowNull: false,
+        },
+        visibility: {
+            type: DataTypes.ENUM(...Object.values(Visibility)),
+            allowNull: false,
+        },
+        isValid: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+        },
+        isDraft: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+        },
     },
     {
         sequelize,
@@ -40,6 +59,11 @@ Ressource.init(
     }
 );
 
-Ressource.hasOne(RessourceType, { as: 'ressourceType', foreignKey: 'ressourceTypeId' });
+
+Ressource.hasMany(RessourceCategory, { foreignKey: 'ressourceId' });
+
+Ressource.hasMany(File, { foreignKey: 'ressourceId' });
+
+Ressource.hasMany(Ressource, { foreignKey: 'masterRessourceId'});
 
 export default Ressource;
