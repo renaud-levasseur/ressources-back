@@ -1,38 +1,56 @@
 import { Request, Response } from 'express';
 import Commentaire from '../models/commentaire.model';
-import User from '../models/user.model';
 import Ressource from '../models/ressource.model';
+import User from '../models/user.model'; 
 
-export const createCommentaire = async (req: Request, res: Response) => {
+export const addCommentaire = async (req: Request, res: Response) => {
     try {
-        // Ici, vous pourriez vouloir vérifier si la ressource existe
         const { contenu, userId, ressourceId } = req.body;
-
-        // Vous pourriez également vérifier si l'utilisateur existe
-        const existingUser = await User.findByPk(userId);
-        if (!existingUser) {
-            return res.status(404).json({ message: 'Utilisateur non trouvé.' });
-        }
-
-        // Et si la ressource existe
-        const existingRessource = await Ressource.findByPk(ressourceId);
-        if (!existingRessource) {
-            return res.status(404).json({ message: 'Ressource non trouvée.' });
-        }
-
-        // Si tout est en ordre, créez le commentaire
-        const newCommentaire = await Commentaire.create({
-            contenu,
-            userId,
-            ressourceId,
-            dateHeureCommentaire: new Date(), // ou laisser Sequelize mettre la valeur par défaut
-        });
-        res.status(201).json({ message: 'Commentaire créé avec succès !', data: newCommentaire });
+        const newCommentaire = await Commentaire.create({ contenu, userId, ressourceId });
+        return res.status(201).json({ message: 'Commentaire ajouté avec succès', data: newCommentaire });
     } catch (error) {
         console.error(error);
-        res.status(400).json({ message: 'La création du commentaire a échoué.' });
+        return res.status(400).json({ message: 'Erreur lors de l\'ajout du commentaire' });
     }
 };
 
-// Ici vous pouvez ajouter les autres contrôleurs pour les opérations CRUD sur Commentaire
-// comme getCommentaires, getCommentaireById, updateCommentaire, deleteCommentaire, etc.
+
+export const getComments = async (_req: Request, res: Response) => {
+    try {
+        const comments = await Commentaire.findAll();
+        res.json(comments);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Erreur lors de la récupération des commentaires.' });
+    }
+};
+
+export const updateComment = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params;
+        const updated = await Commentaire.update(req.body, { where: { idComment: id } });
+        if (updated[0] > 0) {
+            res.json({ message: 'Commentaire mis à jour avec succès !' });
+        } else {
+            res.status(404).json({ message: 'Commentaire non trouvé.' });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Erreur lors de la mise à jour du commentaire.' });
+    }
+};
+
+export const deleteComment = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params;
+        const deleted = await Commentaire.destroy({ where: { idComment: id } });
+        if (deleted) {
+            res.status(200).json({ message: 'Commentaire supprimé avec succès.' });
+        } else {
+            res.status(404).json({ message: 'Commentaire non trouvé.' });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Erreur lors de la suppression du commentaire.' });
+    }
+};

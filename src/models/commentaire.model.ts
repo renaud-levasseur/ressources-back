@@ -8,10 +8,10 @@ export class Commentaire extends Model {
     public contenu!: string;
     public dateHeureCommentaire!: Date;
     public estSupprime!: boolean;
-    public userId!: number; // Clé étrangère pour le modèle User
-    public ressourceId!: number; // Clé étrangère pour le modèle Ressource
+    public userId!: number; 
+    public ressourceId!: number;
 
-    // Associations
+    
     public getUtilisateur?: Association<Commentaire, User>;
     public getRessource?: Association<Commentaire, Ressource>;
 }
@@ -55,15 +55,21 @@ Commentaire.init({
 }, {
     sequelize,
     tableName: 'commentaires',
-    timestamps: true, // gestion automatique des champs createdAt et updatedAt
+    timestamps: true,
     modelName: 'Commentaire',
 });
 
-// Associations
+
 Commentaire.belongsTo(User, { foreignKey: 'userId', as: 'utilisateur' });
 User.hasMany(Commentaire, { foreignKey: 'userId' });
 
 Commentaire.belongsTo(Ressource, { foreignKey: 'ressourceId', as: 'ressource' });
 Ressource.hasMany(Commentaire, { foreignKey: 'ressourceId' });
+
+sequelize.sync({ force: false }).then(() => {
+    console.log('Tables synchronisées avec succès.');
+  }).catch((error) => {
+    console.error('Erreur lors de la synchronisation des tables:', error);
+  });
 
 export default Commentaire;
