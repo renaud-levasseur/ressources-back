@@ -1,5 +1,7 @@
 import express, { Request, Response } from 'express';
 import sequelize from '../sequelize.config';
+
+//Importation des routers
 import userRouter from './routes/user.router';
 import ressourceRouter from './routes/ressource.router';
 import ressourceTypeRouter from './routes/ressourceType.router';
@@ -7,6 +9,7 @@ import relationTypeRouter from './routes/relationType.router';
 import fileRouter from './routes/file.router';
 import categoryRouter from './routes/category.router';
 import ressourceCategoryRouter from './routes/ressourceCategory.router';
+import commentRouter from './routes/comment.router';
 
 // Importation des modeles
 require('./models/ressourceType.model');
@@ -16,6 +19,7 @@ require('./models/ressource.model');
 require('./models/category.model');
 require('./models/ressourceCategory.model');
 require('./models/file.model');
+require('./models/comment.model');
 
 const app = express();
 const bodyParser = require('body-parser');
@@ -35,6 +39,7 @@ app.use(relationTypeRouter)
 app.use(fileRouter)
 app.use(categoryRouter)
 app.use(ressourceCategoryRouter)
+app.use(commentRouter)
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
@@ -45,7 +50,7 @@ sequelize.authenticate()
 .catch((error) => console.error('Unable to connect to the database:', error));
 
 //Synchronisation des modèles avec la base de données
-// !**force à false pour ne pas supprimer et recrée les tables à chaque fois**!
+// !**force à false pour ne pas supprimer et recrer les tables à chaque fois**!
 sequelize.sync({ force: false }).then(() => {
   console.log('Tables synchronisées avec succès.');
 }).catch((error) => {
