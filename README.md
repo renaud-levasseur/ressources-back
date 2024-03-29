@@ -10,7 +10,7 @@ Sequelize
 Jest 
 
 # Pour lancer le serveur en local
-'npm run dev'
+'npm start'
 
 # Pour lancer les tests avec jest 
 'npm test' -> Lance tous les tests 

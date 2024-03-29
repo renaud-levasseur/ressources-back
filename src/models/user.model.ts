@@ -14,6 +14,10 @@ class User extends Model {
     public email!: string;
     public password!: string;
     public role!: UserRole;
+    public isActive!: boolean;
+    public tokenActivation!: string;
+    public codeForgotPassword!: string;
+    public expirationCodeForgotPassword!: Date; 
 }
 
 User.init(
@@ -44,6 +48,26 @@ User.init(
             allowNull: false,
             defaultValue: UserRole.CITIZEN,
         },
+        isActive: {
+            type: new DataTypes.BOOLEAN,
+            allowNull: false,
+            defaultValue: false
+        },
+        tokenActivation: {
+            type: new DataTypes.STRING,
+            allowNull: true,
+            unique: true
+        },
+        codeForgotPassword: {
+            type: new DataTypes.STRING,
+            allowNull: true,
+            unique: true
+        },
+        expirationCodeForgotPassword: {
+            type: new DataTypes.DATE,
+            allowNull: true
+        } 
+        
     },
     {
         sequelize,
