@@ -11,6 +11,7 @@ import ressourceCategoryRouter from './routes/ressourceCategory.router';
 import passport from './middleware/passport-config.middleware';
 import session from 'express-session';
 import * as crypto from 'crypto';
+import commentRouter from './routes/comment.router';
 
 // Importation des modeles
 require('./models/ressourceType.model');
