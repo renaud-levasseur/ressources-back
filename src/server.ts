@@ -1,7 +1,6 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
 import sequelize from '../sequelize.config';
-
-//Importation des routers
+import cors from 'cors';
 import userRouter from './routes/user.router';
 import ressourceRouter from './routes/ressource.router';
 import ressourceTypeRouter from './routes/ressourceType.router';
@@ -9,7 +8,9 @@ import relationTypeRouter from './routes/relationType.router';
 import fileRouter from './routes/file.router';
 import categoryRouter from './routes/category.router';
 import ressourceCategoryRouter from './routes/ressourceCategory.router';
-import commentRouter from './routes/comment.router';
+import passport from './middleware/passport-config.middleware';
+import session from 'express-session';
+import * as crypto from 'crypto';
 
 // Importation des modeles
 require('./models/ressourceType.model');
@@ -25,12 +26,26 @@ const app = express();
 const bodyParser = require('body-parser');
 const port = 3000;
 
+const jwtSecret = crypto.randomBytes(64).toString('hex'); 
+
+app.use(session({
+  secret: jwtSecret, 
+  resave: false,
+  saveUninitialized: true,
+}));
+
+///// MIDDLEWARE ////////////
+app.use(cors({
+  origin: 'http://localhost:4200',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
+}));
+
 app.use(bodyParser.json());
 
-app.get('/', (_req: Request, res: Response) => {
-  res.send('Hello World!');
-});
-
+app.use(passport.initialize());
+app.use(passport.session());
 // Routeurs
 app.use(userRouter);
 app.use(ressourceRouter)
@@ -45,6 +60,7 @@ app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
 
+//////////////////////// SEQUELIZE /////////////////////////
 sequelize.authenticate()
 .then(() => console.log('Connection has been established successfully.'))
 .catch((error) => console.error('Unable to connect to the database:', error));
@@ -56,3 +72,6 @@ sequelize.sync({ force: false }).then(() => {
 }).catch((error) => {
   console.error('Erreur lors de la synchronisation des tables:', error);
 });
+
+export { jwtSecret };
+export default app;
