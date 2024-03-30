@@ -1,11 +1,13 @@
 import express from "express";
-import { createUser, deleteUser, getUserById, updateUser } from "../controllers/user.controller";
+import { GetRessourcesByUserId, createUser, deleteUser, getUserById, getUsers, updateUser } from "../controllers/user.controller";
 
 const router = express.Router();
 
-router.post('/create-user', createUser);
+router.post('/createUser', createUser);
+router.get('/users', getUsers);
+router.get('/userRessources/:id', GetRessourcesByUserId);
 router.get('/user/:id', getUserById);
-router.patch('update-user/:id', updateUser);
-router.delete('delete-user/:id', deleteUser);
+router.patch('/updateUser/:id', updateUser);
+router.delete('/deleteUser/:id', deleteUser);
 
 export default router;

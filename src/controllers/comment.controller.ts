@@ -7,7 +7,7 @@ export const createComment = async (req: Request, res: Response) => {
         const newComment = await Comment.create(req.body);
         res.status(201).json({message: 'Commentaire créé avec succès !', data: newComment});
     } catch (error) {
-        res.status(400).json({error: 'La création du commentaire à échoué.'});
+        res.status(400).json({error: 'La création du commentaire à échouée.'});
     }
 };
 

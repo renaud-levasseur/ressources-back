@@ -15,6 +15,11 @@ import fileRouter from './routes/file.router';
 import categoryRouter from './routes/category.router';
 import ressourceCategoryRouter from './routes/ressourceCategory.router';
 import commentRouter from './routes/comment.router';
+import likeRouter from './routes/like.router';
+import bookmarkRouter from './routes/bookmark.router';
+import participationRouter from './routes/participation.router';
+import exploitationRouter from './routes/exploitation.router';
+import logRouter from './routes/log.router';
 
 // Importation des modeles
 require('./models/ressourceType.model');
@@ -25,6 +30,11 @@ require('./models/category.model');
 require('./models/ressourceCategory.model');
 require('./models/file.model');
 require('./models/comment.model');
+require('./models/like.model');
+require('./models/bookmark.model');
+require('./models/participation.model');
+require('./models/exploitation.model');
+require('./models/log.model');
 
 const app = express();
 const bodyParser = require('body-parser');
@@ -59,6 +69,11 @@ app.use(fileRouter)
 app.use(categoryRouter)
 app.use(ressourceCategoryRouter)
 app.use(commentRouter)
+app.use(likeRouter)
+app.use(bookmarkRouter)
+app.use(participationRouter)
+app.use(exploitationRouter)
+app.use(logRouter)
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
