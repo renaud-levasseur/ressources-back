@@ -7,7 +7,7 @@ export const createCategory = async (req: Request, res: Response) => {
         const newCategory = await Category.create(req.body);
         res.status(201).json({message: 'Catégorie créé avec succès !', data: newCategory});
     } catch (error) {
-        res.status(400).json({error: 'La création de la catégorie a échoué.'});
+        res.status(400).json({error: 'La création de la catégorie a échouée.'});
     }
 };
 

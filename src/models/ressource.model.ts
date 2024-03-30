@@ -49,7 +49,7 @@ Ressource.init(
         isDraft: {
             type: DataTypes.BOOLEAN,
             allowNull: false,
-        },
+        }
     },
     {
         sequelize,

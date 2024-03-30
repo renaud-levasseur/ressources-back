@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
 import User from '../models/user.model';
+import Ressource from '../models/ressource.model';
 
+// Create
 export const createUser = async (req: Request, res: Response) => {
     try {
         const {username, email} = req.body;
@@ -12,10 +14,11 @@ export const createUser = async (req: Request, res: Response) => {
         const newUser = await User.create(req.body);
         res.status(201).json({ message: 'Utilisateur créé avec succès !', data: newUser });
     } catch (error) { 
-        res.status(400).json({ message: 'La création de l\'utilisateur a échoué.' });
+        res.status(400).json({ message: 'La création de l\'utilisateur a échouée.' });
     }
 };
 
+// GetAll
 export const getUsers = async (_req: Request, res: Response) => {
     try {
         const users = await User.findAll();
@@ -26,6 +29,18 @@ export const getUsers = async (_req: Request, res: Response) => {
     }
 };
 
+// GetRessourcesByUserId
+export const GetRessourcesByUserId = async (req: Request, res: Response) => {
+    const id = parseInt(req.params.id);
+    try {
+        const files = await Ressource.findAll({where : {userId : id}});
+        res.json(files);
+    } catch (error) {
+        res.status(500).json({error: 'Une erreur est survenue lors de la récupération des ressources de l\'utilisateur fourni.'});
+    }
+};
+
+// GetOneById
 export const getUserById = async (req: Request, res: Response) => {
     const id = parseInt(req.params.id);
     const user = await User.findByPk(id);
@@ -37,6 +52,7 @@ export const getUserById = async (req: Request, res: Response) => {
     }
 };
 
+// Update
 export const updateUser = async (req: Request, res: Response) => {
     const id = parseInt(req.params.id);
     const user = await User.findByPk(id);
@@ -53,6 +69,7 @@ export const updateUser = async (req: Request, res: Response) => {
     }
 };
 
+// Delete
 export const deleteUser = async (req: Request, res: Response) => {
     try {
         const id = req.params.id;

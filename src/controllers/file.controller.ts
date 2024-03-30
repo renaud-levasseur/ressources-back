@@ -7,7 +7,7 @@ export const createFile = async (req: Request, res: Response) => {
         const newFile = await File.create(req.body);
         res.status(201).json({message: 'Fichier créé avec succès !', data: newFile});
     } catch (error) {
-        res.status(400).json({error: 'La création du fichier a échoué.'});
+        res.status(400).json({error: 'La création du fichier a échouée.'});
     }
 };
 
