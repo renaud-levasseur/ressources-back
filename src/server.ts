@@ -15,6 +15,7 @@ import fileRouter from './routes/file.router';
 import categoryRouter from './routes/category.router';
 import ressourceCategoryRouter from './routes/ressourceCategory.router';
 import commentRouter from './routes/comment.router';
+import chatRouter from './routes/chat.router';
 import likeRouter from './routes/like.router';
 import bookmarkRouter from './routes/bookmark.router';
 import participationRouter from './routes/participation.router';
@@ -30,6 +31,7 @@ require('./models/category.model');
 require('./models/ressourceCategory.model');
 require('./models/file.model');
 require('./models/comment.model');
+require('./models/chat.model');
 require('./models/like.model');
 require('./models/bookmark.model');
 require('./models/participation.model');
@@ -69,6 +71,7 @@ app.use(fileRouter)
 app.use(categoryRouter)
 app.use(ressourceCategoryRouter)
 app.use(commentRouter)
+app.use(chatRouter);
 app.use(likeRouter)
 app.use(bookmarkRouter)
 app.use(participationRouter)
