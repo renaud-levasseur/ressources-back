@@ -1,14 +1,14 @@
 import express from "express";
-import { createChat, getChats, getChatsByResourceId, getChatsByUserId, getChatById, updateChat, deleteChat,} from "../controllers/chat.controller";
+import { createChat, getChats, getChatsByRessourceId, getChatsByUserId, getChatById, updateChat, deleteChat,} from "../controllers/chat.controller";
 
 const router = express.Router();
 
-router.post('/chats', createChat);
+router.post('/createChat', createChat);
 router.get('/chats', getChats);
-router.get('/chats/resources/:resourceId', getChatsByResourceId);
-router.get('/chats/users/:userId', getChatsByUserId);
-router.get('/chats/:id', getChatById);
-router.put('/chats/:id', updateChat);
-router.delete('/chats/:id', deleteChat);
+router.get('/ressourceChats/:id', getChatsByRessourceId);
+router.get('/userChats/:id', getChatsByUserId);
+router.get('/chat/:id', getChatById);
+router.patch('/updateChat/:id', updateChat);
+router.delete('/deleteChat/:id', deleteChat);
 
 export default router;

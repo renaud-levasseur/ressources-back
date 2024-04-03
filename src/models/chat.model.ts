@@ -7,8 +7,6 @@ export class Chat extends Model {
     public chatId!: number;
     public content!: string;
     public sentAt!: Date;
-    public userId!: number;
-    public resourceId!: number;
 }
 
 Chat.init(
@@ -26,17 +24,7 @@ Chat.init(
             type: DataTypes.DATE,
             allowNull: false,
             defaultValue: DataTypes.NOW,
-        },
-        userId: {
-            type: DataTypes.INTEGER.UNSIGNED,
-            allowNull: false,
-            references: { model: User, key: 'id' }, 
-        },
-        resourceId: {
-            type: DataTypes.INTEGER.UNSIGNED,
-            allowNull: false,
-            references: { model: Ressource, key: 'resourceId' }, 
-        },
+        }
     }, 
     {
         sequelize,
@@ -47,8 +35,8 @@ Chat.init(
 );
 
 // Association avec la ressource
-Chat.belongsTo(Ressource, { foreignKey: 'resourceId', as: 'resource' }); 
+Chat.belongsTo(Ressource, { foreignKey: 'ressourceId' }); 
 // Association avec l'utilisateur
-Chat.belongsTo(User, { foreignKey: 'userId', as: 'user' }); 
+Chat.belongsTo(User, { foreignKey: 'userId' }); 
 
 export default Chat;
