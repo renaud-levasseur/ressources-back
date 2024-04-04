@@ -3,7 +3,7 @@ import passport from '../../middleware/passport-config.middleware';
 import jwt from 'jsonwebtoken';
 import { jwtSecret } from '../../server';
 
-export const login = (req: Request, res: Response, next: NextFunction) => {
+export const login = async (req: Request, res: Response, next: NextFunction) => {
 
     passport.authenticate('local', (error: any, user: any, info: { message: any; }) => {
         if (error) {

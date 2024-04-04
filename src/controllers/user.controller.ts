@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import User from '../models/user.model';
 
+// TODO: Revoir la méthode pour permettre l'ajout d'utilisateur superadmin, admin et modérateur
 export const createUser = async (req: Request, res: Response) => {
     try {
         const {username, email} = req.body;
