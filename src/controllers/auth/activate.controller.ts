@@ -27,7 +27,7 @@ export const activateAccount = async (req: Request, res: Response) => {
             tokenActivation: null
 
         },
-        { where: { id: user.id} }
+        { where: { id: user.userId} }
         );
 
         res.status(200).json({ message: 'Account activated successfully' });

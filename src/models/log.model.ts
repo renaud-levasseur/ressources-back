@@ -1,39 +1,42 @@
 import { Model, DataTypes } from 'sequelize';
 import sequelize from '../../sequelize.config';
+import User from './user.model';
 
-class File extends Model {
-    public fileId!: number;
-    public title!: string;
-    public url!: string;
-    public weight!: number;
+class Log extends Model {
+    public logId!: number;
+    public type!: string;
+    public text!: string;
+    public date!: Date;
 }
 
-File.init(
+Log.init(
     {
-        fileId: {
+        logId: {
             type: DataTypes.INTEGER.UNSIGNED,
             autoIncrement: true,
             primaryKey: true,
         },
-        title: {
+        type: {
             type: DataTypes.STRING(30),
             allowNull: false,
         },
-        url: {
+        text: {
             type: DataTypes.STRING(100),
             allowNull: false,
         },
-        weight: {
-            type: DataTypes.FLOAT.UNSIGNED,
+        date: {
+            type: DataTypes.DATE,
             allowNull: false,
         }
     },
     {
         sequelize,
-        modelName: 'File',
-        tableName: 'File',
+        modelName: 'Log',
+        tableName: 'Log',
         timestamps: false
     }
 );
 
-export default File;
+Log.belongsTo(User, {foreignKey: 'userId' });
+
+export default Log;

@@ -7,7 +7,7 @@ export const createRessourceCategory = async (req: Request, res: Response) => {
         const newRessourceCategory = await RessourceCategory.create(req.body);
         res.status(201).json({message: 'Association Ressource/Catégorie créé avec succès !', data: newRessourceCategory});
     } catch (error) {
-        res.status(400).json({error: 'La création de l\'association Ressource/Catégorie a échoué.'});
+        res.status(400).json({error: 'La création de l\'association Ressource/Catégorie a échouée.'});
     }
 };
 

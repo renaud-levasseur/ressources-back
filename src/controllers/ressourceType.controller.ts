@@ -8,7 +8,7 @@ export const createRessourceType = async (req: Request, res: Response) => {
         const newRessourceType = await RessourceType.create(req.body);
         res.status(201).json({message: 'Type de ressource créé avec succès !', data: newRessourceType});
     } catch (error) {
-        res.status(400).json({error: 'La création du type de ressource a échoué.'});
+        res.status(400).json({error: 'La création du type de ressource a échouée.'});
     }
 };
 

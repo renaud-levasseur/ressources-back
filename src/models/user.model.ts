@@ -9,7 +9,7 @@ enum UserRole {
 }
 
 class User extends Model {
-    public id!: number;
+    public userId!: number;
     public username!: string;
     public email!: string;
     public password!: string;
@@ -22,7 +22,7 @@ class User extends Model {
 
 User.init(
     {
-        id: {
+        userId: {
             type: DataTypes.INTEGER.UNSIGNED,
             autoIncrement: true,
             primaryKey: true,

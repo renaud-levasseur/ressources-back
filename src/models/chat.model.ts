@@ -3,15 +3,15 @@ import sequelize from '../../sequelize.config';
 import Ressource from './ressource.model';
 import User from './user.model';
 
-export class Comment extends Model {
-    public commentId!: number;
+export class Chat extends Model {
+    public chatId!: number;
     public content!: string;
-    public publishedAt!: Date;
+    public sentAt!: Date;
 }
 
-Comment.init(
+Chat.init(
     {
-        commentId: {
+        chatId: {
             type: DataTypes.INTEGER.UNSIGNED,
             autoIncrement: true,
             primaryKey: true,
@@ -20,7 +20,7 @@ Comment.init(
             type: DataTypes.TEXT,
             allowNull: false,
         },
-        publishedAt: {
+        sentAt: {
             type: DataTypes.DATE,
             allowNull: false,
             defaultValue: DataTypes.NOW,
@@ -28,15 +28,15 @@ Comment.init(
     }, 
     {
         sequelize,
-        modelName: 'Comment',
-        tableName: 'Comment',
+        modelName: 'Chat',
+        tableName: 'Chat',
         timestamps: false,
     }
 );
 
 // Association avec la ressource
-Comment.belongsTo(Ressource, { foreignKey: 'ressourceId' });
+Chat.belongsTo(Ressource, { foreignKey: 'ressourceId' }); 
 // Association avec l'utilisateur
-Comment.belongsTo(User, { foreignKey: 'userId' });
+Chat.belongsTo(User, { foreignKey: 'userId' }); 
 
-export default Comment;
+export default Chat;
