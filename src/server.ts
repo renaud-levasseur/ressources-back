@@ -92,7 +92,7 @@ sequelize.authenticate()
 
 // Synchronisation des modèles avec la BDD
 // !**force à false pour ne pas supprimer et recrer les tables à chaque fois**!
-sequelize.sync({ force: true }).then(() => {
+sequelize.sync({ force: false }).then(() => {
   console.log('Tables synchronisées avec succès.');
 }).catch((error) => {
   console.error('Erreur lors de la synchronisation des tables:', error);
