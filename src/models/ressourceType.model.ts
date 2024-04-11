@@ -6,6 +6,7 @@ class RessourceType extends Model {
     public ressourceTypeId!: number;
     public name!: string;
     public description?: string;
+    public isActive!: boolean;
 }
 
 RessourceType.init(
@@ -22,6 +23,11 @@ RessourceType.init(
         description: {
             type: DataTypes.STRING(60),
             allowNull: true,
+        },
+        isActive: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+            defaultValue: true
         }
     },
     {

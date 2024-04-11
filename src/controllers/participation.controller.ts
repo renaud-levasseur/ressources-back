@@ -7,7 +7,7 @@ export const createParticipation = async (req: Request, res: Response) => {
         const newParticipation = await Participation.create(req.body);
         res.status(201).json({message: 'Participation ajoutée avec succès !', data: newParticipation});
     } catch (error) {
-        res.status(400).json({error: 'La création de la participation à échouée.'});
+        res.status(400).json({error: 'La création de la participation a échoué.'});
     }
 };
 

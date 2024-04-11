@@ -13,7 +13,12 @@ class User extends Model {
     public username!: string;
     public email!: string;
     public password!: string;
+    public firstName!: string;
+    public lastName!: string;
+    public phone!: string;
     public role!: UserRole;
+    public joinedAt!: Date;
+    public lastLoginDate!: Date;
     public isActive!: boolean;
     public tokenActivation!: string;
     public codeForgotPassword!: string;
@@ -28,11 +33,11 @@ User.init(
             primaryKey: true,
         },
         username: {
-            type: new DataTypes.STRING(30),
+            type: DataTypes.STRING(30),
             allowNull: false,
         },
         email: {
-            type: new DataTypes.STRING(30),
+            type: DataTypes.STRING(50),
             allowNull: false,
             unique: true,
             validate: {
@@ -40,7 +45,19 @@ User.init(
             },
         },
         password: {
-            type: new DataTypes.STRING(30),
+            type: DataTypes.STRING(30),
+            allowNull: false,
+        },
+        firstName: {
+            type: DataTypes.STRING(30),
+            allowNull: false,
+        },
+        lastName: {
+            type: DataTypes.STRING(30),
+            allowNull: false,
+        },
+        phone: {
+            type: DataTypes.STRING(15),
             allowNull: false,
         },
         role: {
@@ -48,26 +65,33 @@ User.init(
             allowNull: false,
             defaultValue: UserRole.CITIZEN,
         },
+        joinedAt: {
+            type: DataTypes.DATE,
+            allowNull: false,
+        },
+        lastLoginDate: {
+            type: DataTypes.DATE,
+            allowNull: false,
+        },
         isActive: {
-            type: new DataTypes.BOOLEAN,
+            type: DataTypes.BOOLEAN,
             allowNull: false,
             defaultValue: false
         },
         tokenActivation: {
-            type: new DataTypes.STRING,
+            type: DataTypes.STRING,
             allowNull: true,
             unique: true
         },
         codeForgotPassword: {
-            type: new DataTypes.STRING,
+            type: DataTypes.STRING,
             allowNull: true,
             unique: true
         },
         expirationCodeForgotPassword: {
-            type: new DataTypes.DATE,
+            type: DataTypes.DATE,
             allowNull: true
-        } 
-        
+        }
     },
     {
         sequelize,

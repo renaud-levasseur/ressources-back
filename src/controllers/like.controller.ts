@@ -7,7 +7,7 @@ export const createLike = async (req: Request, res: Response) => {
         const newLike = await Like.create(req.body);
         res.status(201).json({message: 'Like ajouté avec succès !', data: newLike});
     } catch (error) {
-        res.status(400).json({error: 'La création du like à échouée.'});
+        res.status(400).json({error: 'La création du like a échoué.'});
     }
 };
 

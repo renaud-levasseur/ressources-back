@@ -14,7 +14,7 @@ export const createUser = async (req: Request, res: Response) => {
         const newUser = await User.create(req.body);
         res.status(201).json({ message: 'Utilisateur créé avec succès !', data: newUser });
     } catch (error) { 
-        res.status(400).json({ message: 'La création de l\'utilisateur a échouée.' });
+        res.status(400).json({ message: 'La création de l\'utilisateur a échoué.' });
     }
 };
 
@@ -86,3 +86,4 @@ export const deleteUser = async (req: Request, res: Response) => {
         res.status(500).json({ message: 'Une erreur est survenue lors de la suppression de l\'utilisateur.' });
     }
 };
+

@@ -6,6 +6,7 @@ class RelationType extends Model {
     public relationTypeId!: number;
     public name!: string;
     public description?: string;
+    public isActive!: boolean;
 }
 
 RelationType.init(
@@ -22,6 +23,11 @@ RelationType.init(
         description: {
             type: DataTypes.STRING(60),
             allowNull: true,
+        },
+        isActive: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+            defaultValue: true
         }
     },
     {

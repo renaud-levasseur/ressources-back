@@ -7,7 +7,7 @@ export const createBookmark = async (req: Request, res: Response) => {
         const newBookmark = await Bookmark.create(req.body);
         res.status(201).json({message: 'Signet ajouté avec succès !', data: newBookmark});
     } catch (error) {
-        res.status(400).json({error: 'La création du signet à échouée.'});
+        res.status(400).json({error: 'La création du signet a échoué.'});
     }
 };
 
