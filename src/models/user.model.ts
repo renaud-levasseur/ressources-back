@@ -55,11 +55,11 @@ User.init(
         },
         joinedAt: {
             type: DataTypes.DATE,
-            allowNull: false,
+            allowNull: true,
         },
         lastLoginDate: {
             type: DataTypes.DATE,
-            allowNull: false,
+            allowNull: true,
         },
         isActive: {
             type: DataTypes.BOOLEAN,
