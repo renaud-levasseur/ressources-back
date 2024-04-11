@@ -14,8 +14,8 @@ router.post('/inscription', inscription);
 router.post('activate-usertype', activateAccount);
 router.post('/check-activation-token', checkActivationToken);
 
-router.post('/send-verification-code', sendVerificationCode);
-router.post('/update-password', updatePassword);
+router.post('/forgot-password/send-verification-code', sendVerificationCode);
+router.post('/forgot-password/update-password', updatePassword);
 
 
 export default router;

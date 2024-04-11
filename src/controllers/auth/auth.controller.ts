@@ -33,6 +33,6 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
 
 export const logout = (req: Request, res: Response) => {
     req.logout(() => {}); 
-    res.redirect('auth/login'); // Redirection de l'utilisateur vers la page de connexion
+    res.redirect('/home'); // Redirection de l'utilisateur vers la page d'accueil après déconnexion
 };
 

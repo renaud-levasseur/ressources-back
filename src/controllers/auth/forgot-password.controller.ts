@@ -87,7 +87,7 @@ export const updatePassword = async (req: Request, res: Response, next: NextFunc
         );
         return res.status(200).json({ message: "Password successfully updated"});
     } else {
-        return res.status(403).json({ message: "The verification code is incorrect."})
+        return res.status(403).json({ message: "The verification code is incorrect."});
     }
 
 
@@ -100,14 +100,14 @@ const sendCodeVerification = async (email: string, verificationCode: string) => 
           port: 587,
           secure: false,
           auth: {
-            user: 'renaud.levasseur@viacesi.fr',
-            pass: 'Rykew589'
+            user: 'ressources-relationnelles@outlook.fr',
+            pass: 'Ressources2024!'
           }
         })
     );
 
     const mailOptions = {
-        from: 'renaud.levasseur@viacesi.fr',
+        from: 'ressources-relationnelles@outlook.fr',
         to: email,
         subject: 'Réinitialisation de mot de passe Ressource Relationnelles',
         html: `
