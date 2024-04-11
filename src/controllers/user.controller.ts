@@ -87,14 +87,14 @@ const sendActivationEmail = async (email: string, role: string, activationToken:
           port: 587,
           secure: false,
           auth: {
-            user: 'renaud.levasseur@viacesi.fr',
-            pass: 'Rykew589'
+            user: 'ressources-relationnelles@outlook.fr',
+            pass: 'Ressources2024!'
           }
       })   
   );
 
   const mailOptions = {
-    from: 'renaud.levasseur@viacesi.fr',
+    from: 'ressources-relationnelles@outlook.fr',
     to: email,
     subject: 'Activation de compte',
     html: `
@@ -144,14 +144,14 @@ export const inscriptionUser = async (req: Request, res: Response) => {
               port: 587,
               secure: false,
               auth: {
-                user: 'renaud.levasseur@viacesi.fr',
-                pass: 'Rykew589'
+                user: 'ressources-relationnelles@outlook.fr',
+                pass: 'Ressources2024!'
               }
           })   
       );
 
       const mailOptions = {
-        from: 'renaud.levasseur@viacesi.fr',
+        from: 'ressources-relationnelles@outlook.fr',
         to: email,
         subject: 'Confirmation d\'inscription',
         html: `

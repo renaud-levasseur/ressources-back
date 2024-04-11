@@ -22,7 +22,7 @@ export const inscription = async (req: Request, res: Response, next: NextFunctio
             return res.status(400).json('Username or Email already in use');
         }
 
-        await User.create({ username, email, password });
+        await User.create({ username, email, password }); //Création de l'utilisateur
 
         return res.status(201).json({ message: 'User successfully created' });
 
