@@ -42,7 +42,7 @@ Ressource.init(
         },
         updatedAt: {
             type: DataTypes.DATE,
-            allowNull: false,
+            allowNull: true,
         },
         visibility: {
             type: DataTypes.ENUM(...Object.values(Visibility)),
