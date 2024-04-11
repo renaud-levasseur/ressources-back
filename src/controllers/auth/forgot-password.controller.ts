@@ -85,9 +85,9 @@ export const updatePassword = async (req: Request, res: Response, next: NextFunc
         },
         { where: { email: email} }
         );
-        return res.status(200).json({ message: "Mot de passe mis à jour avec succès"});
+        return res.status(200).json({ message: "Password successfully updated"});
     } else {
-        return res.status(403).json({ message: "Le code de vérification est incorrect."})
+        return res.status(403).json({ message: "The verification code is incorrect."})
     }
 
 
@@ -122,9 +122,9 @@ const sendCodeVerification = async (email: string, verificationCode: string) => 
     }
     try {
         const info = await transporter.sendMail(mailOptions);
-        console.log("Email envoyé :", info.response);
+        console.log("Email sent :", info.response);
     } catch (error) {
-        console.error("Erreur lors de l'envoi de l'email :", error);
+        console.error("Error sending email :", error);
     }
 }
 

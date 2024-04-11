@@ -45,19 +45,7 @@ User.init(
             },
         },
         password: {
-            type: DataTypes.STRING(30),
-            allowNull: false,
-        },
-        firstName: {
-            type: DataTypes.STRING(30),
-            allowNull: false,
-        },
-        lastName: {
-            type: DataTypes.STRING(30),
-            allowNull: false,
-        },
-        phone: {
-            type: DataTypes.STRING(15),
+            type: new DataTypes.STRING(255), //Ne surtout pas changer la taille du champ!
             allowNull: false,
         },
         role: {
@@ -67,11 +55,11 @@ User.init(
         },
         joinedAt: {
             type: DataTypes.DATE,
-            allowNull: false,
+            allowNull: true,
         },
         lastLoginDate: {
             type: DataTypes.DATE,
-            allowNull: false,
+            allowNull: true,
         },
         isActive: {
             type: DataTypes.BOOLEAN,
