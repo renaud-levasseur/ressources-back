@@ -6,6 +6,7 @@ class Category extends Model {
     public categoryId!: number;
     public name!: string;
     public description?: string;
+    public isActive!: boolean;
 }
 
 Category.init(
@@ -22,6 +23,11 @@ Category.init(
         description: {
             type: DataTypes.STRING(60),
             allowNull: true,
+        },
+        isActive: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+            defaultValue: true
         }
     },
     {

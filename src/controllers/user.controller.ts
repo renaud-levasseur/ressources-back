@@ -21,8 +21,15 @@ export const createUser = async (req: Request, res: Response) => {
       },
     });
 
+<<<<<<< HEAD
     if (existingUser) {
       return res.status(409).json({ message: "Cet email est déjà utilisé par un autre utilisateur" });
+=======
+        const newUser = await User.create(req.body);
+        res.status(201).json({ message: 'Utilisateur créé avec succès !', data: newUser });
+    } catch (error) { 
+        res.status(400).json({ message: 'La création de l\'utilisateur a échoué.' });
+>>>>>>> 7da436cf0f08799eedad6d6eb89536e65c331fff
     }
     
     // Génére un mot de passe temporaire avant activation du compte utilisateur (superadmin, admin, modérateur)

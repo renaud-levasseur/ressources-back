@@ -8,7 +8,7 @@ export const createRessource = async (req: Request, res: Response) => {
         const newRessource = await Ressource.create(req.body);
         res.status(201).json({message: 'Ressource créé avec succès !', data: newRessource});
     } catch (error) {
-        res.status(400).json({error: 'La création de la ressource a échouée.'});
+        res.status(400).json({error: 'La création de la ressource a échoué.'});
     }
 };
 

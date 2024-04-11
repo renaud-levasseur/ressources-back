@@ -7,7 +7,7 @@ export const createLog = async (req: Request, res: Response) => {
         const newLog = await Log.create(req.body);
         res.status(201).json({message: 'Log créé avec succès !', data: newLog});
     } catch (error) {
-        res.status(400).json({error: 'La création du log a échouée.'});
+        res.status(400).json({error: 'La création du log a échoué.'});
     }
 };
 

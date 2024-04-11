@@ -5,10 +5,16 @@ import Ressource from '../models/ressource.model';
 // Create
 export const createRelationType = async (req: Request, res: Response) => {
     try {
+        const {name} = req.body;
+        const existingRelationType = await RelationType.findOne({ where: { name } });
+        if (existingRelationType) {
+            return res.status(409).json({ message: 'Un type de relation avec le même nom existe déjà.' });
+        }
+        
         const newRelationType = await RelationType.create(req.body);
         res.status(201).json({message: 'Type de relation créé avec succès !', data: newRelationType});
     } catch (error) {
-        res.status(400).json({error: 'La création du type de relation a échouée.'});
+        res.status(400).json({error: 'La création du type de relation a échoué.'});
     }
 };
 

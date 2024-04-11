@@ -14,7 +14,9 @@ class Ressource extends Model {
     public title!: string;
     public content!: string;
     public createdAt!: Date;
+    public updatedAt!: Date;
     public visibility!: Visibility;
+    public isActive!: boolean;
     public isValid!: boolean;
     public isDraft!: boolean;
 }
@@ -27,20 +29,30 @@ Ressource.init(
             primaryKey: true,
         },
         title: {
-            type: DataTypes.STRING(30),
+            type: DataTypes.STRING(80),
             allowNull: false,
         },
         content: {
-            type: DataTypes.STRING(30),
+            type: DataTypes.STRING(500),
             allowNull: false,
         },
         createdAt: {
             type: DataTypes.DATE,
             allowNull: false,
         },
+        updatedAt: {
+            type: DataTypes.DATE,
+            allowNull: false,
+        },
         visibility: {
             type: DataTypes.ENUM(...Object.values(Visibility)),
             allowNull: false,
+            defaultValue: Visibility.PRIVATE,
+        },
+        isActive: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+            defaultValue: false
         },
         isValid: {
             type: DataTypes.BOOLEAN,
@@ -49,6 +61,7 @@ Ressource.init(
         isDraft: {
             type: DataTypes.BOOLEAN,
             allowNull: false,
+            defaultValue: true
         }
     },
     {
