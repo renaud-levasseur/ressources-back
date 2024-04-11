@@ -40,7 +40,7 @@ User.init(
             },
         },
         password: {
-            type: new DataTypes.STRING(30),
+            type: new DataTypes.STRING(255), //Ne surtout pas changer la taille du champ!
             allowNull: false,
         },
         role: {

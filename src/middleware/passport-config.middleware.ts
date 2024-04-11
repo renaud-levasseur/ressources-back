@@ -36,12 +36,12 @@ passport.use(
 
 // Sérialiser l'utilisateur dans la session
 passport.serializeUser((user: any, done) => {
-  done(null, user.id);
+  done(null, user.userId);
 });
 
 // Désérialiser l'utilisateur dans la session
-passport.deserializeUser(async (id_user: number, done) => {
-  const user = await User.findOne({ where: { id_user } });
+passport.deserializeUser(async (userId: number, done) => {
+  const user = await User.findOne({ where: { userId } });
   done(null, user);
 });
   

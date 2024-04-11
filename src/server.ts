@@ -21,6 +21,7 @@ import bookmarkRouter from './routes/bookmark.router';
 import participationRouter from './routes/participation.router';
 import exploitationRouter from './routes/exploitation.router';
 import logRouter from './routes/log.router';
+import authRouter from './routes/auth.router';
 
 // Importation des modeles
 require('./models/ressourceType.model');
@@ -59,6 +60,7 @@ app.use(cors({
 }));
 
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -77,6 +79,7 @@ app.use(bookmarkRouter)
 app.use(participationRouter)
 app.use(exploitationRouter)
 app.use(logRouter)
+app.use('/auth', authRouter);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
