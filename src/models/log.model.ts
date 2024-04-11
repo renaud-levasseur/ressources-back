@@ -21,7 +21,7 @@ Log.init(
             allowNull: false,
         },
         text: {
-            type: DataTypes.STRING(100),
+            type: DataTypes.TEXT,
             allowNull: false,
         },
         date: {

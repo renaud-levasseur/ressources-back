@@ -21,7 +21,7 @@ RessourceType.init(
             allowNull: false,
         },
         description: {
-            type: DataTypes.STRING(60),
+            type: DataTypes.TEXT,
             allowNull: true,
         },
         isActive: {

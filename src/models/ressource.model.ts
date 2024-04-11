@@ -14,7 +14,7 @@ class Ressource extends Model {
     public title!: string;
     public content!: string;
     public createdAt!: Date;
-    public updatedAt!: Date;
+    public updatedAt?: Date;
     public visibility!: Visibility;
     public isActive!: boolean;
     public isValid!: boolean;
@@ -33,7 +33,7 @@ Ressource.init(
             allowNull: false,
         },
         content: {
-            type: DataTypes.STRING(500),
+            type: DataTypes.TEXT,
             allowNull: false,
         },
         createdAt: {

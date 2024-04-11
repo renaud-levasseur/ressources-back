@@ -20,7 +20,7 @@ File.init(
             allowNull: false,
         },
         url: {
-            type: DataTypes.STRING(100),
+            type: DataTypes.TEXT,
             allowNull: false,
         },
         weight: {
