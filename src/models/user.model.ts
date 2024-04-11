@@ -13,9 +13,6 @@ class User extends Model {
     public username!: string;
     public email!: string;
     public password!: string;
-    public firstName!: string;
-    public lastName!: string;
-    public phone!: string;
     public role!: UserRole;
     public joinedAt!: Date;
     public lastLoginDate!: Date;
