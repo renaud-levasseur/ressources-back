@@ -87,14 +87,14 @@ const sendActivationEmail = async (email: string, role: string, activationToken:
           port: 587,
           secure: false,
           auth: {
-            user: 'ressources-relationnelles@outlook.fr',
-            pass: 'Ressources2024!'
+            user: 'renaud.levasseur@viacesi.fr',
+            pass: 'Rykew589'
           }
       })   
   );
 
   const mailOptions = {
-    from: 'ressources-relationnelles@outlook.fr',
+    from: 'renaud.levasseur@viacesi.fr',
     to: email,
     subject: 'Activation de compte',
     html: `
@@ -102,10 +102,10 @@ const sendActivationEmail = async (email: string, role: string, activationToken:
       <br/>
       <p>Bonjour !</p>
       <br/>
-      <p>Un responsable 'Ressources relationnelles' vient de créer un compte en votre nom avec le rôle: ${role}</p>
+      <p>Un responsable 'Ressources relationnelles' vient de créer un compte en votre nom, avec le rôle: ${role}</p>
       <p>Nous vous invitons désormais à cliquer sur le bouton ci-dessous pour choisir un mot de passe de connexion</p>
       <p>et ainsi activer votre compte utilisateur</p> 
-      <a href="http://localhost:4200/activate/${activationToken}" style="background-color: #007bff; color: #fff; padding: 10px 20px; text-decoration: none; display: inline-block;">Choisissez votre mot de passe</a>
+      <a href="http://localhost:4200/auth/activate/${activationToken}" style="background-color: #007bff; color: #fff; padding: 10px 20px; text-decoration: none; display: inline-block;">Choisissez votre mot de passe</a>
     `
   };
 
@@ -144,14 +144,14 @@ export const inscriptionUser = async (req: Request, res: Response) => {
               port: 587,
               secure: false,
               auth: {
-                user: 'ressources-relationnelles@outlook.fr',
-                pass: 'Ressources2024!'
+                user: 'renaud.levasseur@viacesi.fr',
+                pass: 'Rykew589'
               }
           })   
       );
 
       const mailOptions = {
-        from: 'ressources-relationnelles@outlook.fr',
+        from: 'renaud.levasseur@viacesi.fr',
         to: email,
         subject: 'Confirmation d\'inscription',
         html: `

@@ -3,7 +3,7 @@ import { GetRessourcesByUserId, createUser, deleteUser, getUserById, getUsers, u
 
 const router = express.Router();
 
-router.post('/createUser', createUser);
+router.post('/createSpecificUser', createUser);
 router.get('/users', getUsers);
 router.get('/userRessources/:id', GetRessourcesByUserId);
 router.get('/user/:id', getUserById);
