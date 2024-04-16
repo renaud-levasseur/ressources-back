@@ -100,14 +100,14 @@ const sendCodeVerification = async (email: string, verificationCode: string) => 
           port: 587,
           secure: false,
           auth: {
-            user: 'ressources-relationnelles@outlook.fr',
-            pass: 'Ressources2024!'
+            user: 'renaud.levasseur@viacesi.fr',
+            pass: 'Rykew589'
           }
         })
     );
 
     const mailOptions = {
-        from: 'ressources-relationnelles@outlook.fr',
+        from: 'renaud.levasseur@viacesi.fr',
         to: email,
         subject: 'Réinitialisation de mot de passe Ressource Relationnelles',
         html: `

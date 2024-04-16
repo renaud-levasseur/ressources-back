@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import User from '../../models/user.model';
 import { Op } from 'sequelize';
+import bcrypt from 'bcrypt';
 
 
 export const inscription = async (req: Request, res: Response, next: NextFunction) => {
@@ -22,13 +23,14 @@ export const inscription = async (req: Request, res: Response, next: NextFunctio
             return res.status(400).json('Username or Email already in use');
         }
 
-        await User.create({ username, email, password }); //Création de l'utilisateur
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        await User.create({ username, email, password: hashedPassword }); //Création de l'utilisateur
 
         return res.status(201).json({ message: 'User successfully created' });
 
     } catch (error) {
         console.error('Error on inscription', error);
     }
-
 
 }
