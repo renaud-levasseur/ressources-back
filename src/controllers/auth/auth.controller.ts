@@ -23,8 +23,8 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
         //Si rememberMe durée du token à 10 jours sinon 24h
         const tokenDuration = rememberMe ? '10d' : '24h'; 
 
-        //Génération du token utilisateur lors de connexion
-        const token = jwt.sign({ userId: user.userId, role: user.role, username: user.username }, jwtSecret, {expiresIn: tokenDuration});
+        //Génération du token utilisateur lors de la connexion
+        const token = jwt.sign({ userId: user.id_user, role: user.role, username: user.username }, jwtSecret, {expiresIn: tokenDuration});
 
         return res.status(200).json({ message: 'Successfully connected', token });
         });

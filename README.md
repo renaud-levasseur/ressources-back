@@ -1,10 +1,13 @@
 # ressources-back
 
 # Nommage des variables en camelCase
-exemple: 'varaibleTest'
+exemple: 'variableTest'
 
 # ORM (Object Relational Model)
-Sequelize
+Prisma
+
+prisma generate -> Pour générer les models
+prisma migrate dev -> Pour migrer la base de données
 
 # Librairie utilisé pour les tests 
 Jest 

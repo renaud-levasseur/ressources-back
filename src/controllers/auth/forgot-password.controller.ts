@@ -1,15 +1,17 @@
 import { Request, Response, NextFunction } from 'express';
-import User from "../../models/user.model";
 import nodemailer from 'nodemailer';
 import SMTPTransport from 'nodemailer/lib/smtp-transport';
 import bcrypt from 'bcrypt';
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
 
 export const sendVerificationCode = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const email = req.body.email;
 
         //On vérifie que l'utilisateur est bien existant
-        const user = await User.findOne({
+        const user = await prisma.user.findUnique({
             where : {
                 email: email
             }
@@ -17,7 +19,7 @@ export const sendVerificationCode = async (req: Request, res: Response, next: Ne
 
         // Si l'utilisateur est inexistant
         if (!user)  {
-            return res.status(404).json({ message: "User not found"});
+            return res.status(404).json({ message: "Utilisateur introuvable"});
         }
 
         //On vérifie si l'utilisateur a déjà un code existant pour la réinitialisation et qu'il n'est pas expiré
@@ -34,27 +36,33 @@ export const sendVerificationCode = async (req: Request, res: Response, next: Ne
 
             // S'il n'y a pas encore de code existant, on l'insère dans la table de l'user correspondant
             if (!user.codeForgotPassword) {
-                await User.update({
-                    codeForgotPassword: verificationCode,
-                    expirationCodeForgotPassword: expirationDate
-                },
-                { where: {email} }
-                );    
+                await prisma.user.update({
+                    where: {
+                        email: email
+                    },
+                    data: {
+                        codeForgotPassword: verificationCode,
+                        expirationCodeForgotPassword: expirationDate
+                    }
+                });    
                 // S'il y a un code existant, on met à jour les informations
             } else {
-                await User.update({
-                    codeForgotPassword: verificationCode,
-                    expirationCodeForgotPassword: expirationDate
-                },
-                { where: { email: email} }
-                );
+                await prisma.user.update({
+                    where: {
+                        email: email
+                    },
+                    data: {
+                        codeForgotPassword: verificationCode,
+                        expirationCodeForgotPassword: expirationDate
+                    }
+                });
             }
             
             //Envoi du nouveau code à l'utilisateur
             sendCodeVerification(email, verificationCode);
         }
     } catch (error) {
-        console.error("Error sending verification code :", error);
+        console.error("Erreur lors de l'envoi du code de vérification", error);
     }
 
 }
@@ -65,32 +73,33 @@ export const updatePassword = async (req: Request, res: Response, next: NextFunc
     const verificationCode = req.body.code;
     const newPassword = req.body.newPassword;
 
-    const user = await User.findOne({
+    const user = await prisma.user.findUnique({
         where: {
             email: email
         }
     });
 
     if (!user) {
-        return res.status(404).json({message: 'User not found'});
+        return res.status(404).json({message: 'Utilisateur introuvable'});
     }
 
     if (user.codeForgotPassword === verificationCode && user.expirationCodeForgotPassword!! > new Date) {
         const hashedPassword = await bcrypt.hash(newPassword, 10);
         
-        await User.update({
+        await prisma.user.update({
+            where: {
+                email: email
+            },
+            data: { 
             password: hashedPassword,
             codeForgotPassword: null,
             expirationCodeForgotPassword: null
-        },
-        { where: { email: email} }
-        );
-        return res.status(200).json({ message: "Password successfully updated"});
+            }
+        });
+        return res.status(200).json({ message: "Mot de passe mis à jour avec succès"});
     } else {
-        return res.status(403).json({ message: "The verification code is incorrect."});
+        return res.status(403).json({ message: "Code de vérification invalide ou expiré"});
     }
-
-
 }
 
 const sendCodeVerification = async (email: string, verificationCode: string) => {
@@ -122,9 +131,9 @@ const sendCodeVerification = async (email: string, verificationCode: string) => 
     }
     try {
         const info = await transporter.sendMail(mailOptions);
-        console.log("Email sent :", info.response);
+        console.log("Email envoyé :", info.response);
     } catch (error) {
-        console.error("Error sending email :", error);
+        console.error("Error lors de l'envoi d'email :", error);
     }
 }
 
