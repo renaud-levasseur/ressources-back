@@ -1,0 +1,142 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      =  env("DATABASE_URL")
+}
+
+//************************ USER *****************************//
+
+enum UserRole {
+  SUPERADMIN
+  ADMIN
+  MODERATOR
+  CITIZEN
+}
+
+model User {
+  id_user                         Int           @id @default(autoincrement())
+  username                        String        @unique
+  email                           String        @unique
+  password                        String        @unique
+  role                            UserRole      @default(CITIZEN)
+  joinedAt                        DateTime      @default(now())
+  isActive                        Boolean       @default(true)
+  tokenActivation                 String?       @unique
+  codeForgotPassword              String?       @unique
+  expirationCodeForgotPassword    DateTime?
+  ressources                      Ressource[]
+  comment                         Comment[]
+  chat                            Chat[]
+  favorites                       Favorite[]
+  likes                           Like[]
+  participants                    Participant[]
+}
+
+//*****************************************************************//
+
+//************************ RESSOURCE *****************************//
+enum Visibility {
+  PUBLIC
+  PRIVATE
+}
+
+model Ressource {
+  id_ressource             Int                @id @default(autoincrement())
+  title                    String
+  description              String
+  visibility               Visibility         @default(PUBLIC)
+  category                 String
+  type                     String
+  relations                Json               //Plusieurs relations possibles
+  isValid                  Boolean            @default(false)
+  isActive                 Boolean            @default(false)
+  isDraft                  Boolean            @default(true)
+  createdAt                DateTime?          @default(now())
+  updatedAt                DateTime?          @updatedAt
+  user_id                  Int?
+  user                     User?              @relation(fields: [user_id], references: [id_user])
+  files                    File[]
+  comments                 Comment[]
+  chats                    Chat[]
+  favorites                Favorite[]
+  likes                    Like[]
+  participants             Participant[] 
+}
+
+//********************************************************************//
+
+//************************ FILE ************************************//
+model File {
+  id_file                  Int                @id @default(autoincrement())
+  name                     String
+  path                     String
+  type                     String
+  size                     Int
+  ressource_id             Int?   
+  ressource                Ressource?         @relation(fields: [ressource_id], references: [id_ressource])
+}
+
+//***************************************************************//
+
+//************************ COMMENT *****************************//
+model Comment {
+  id_comment               Int                @id @default(autoincrement())
+  content                  String
+  createdAt                DateTime?          @default(now())
+  user_id                  Int?
+  user                     User?              @relation(fields: [user_id], references: [id_user])
+  ressource_id             Int?
+  ressource                Ressource?         @relation(fields: [ressource_id], references: [id_ressource])
+}
+//************************************************************//
+
+//************************ CHAT *****************************//
+model Chat {
+  id_chat                  Int                @id @default(autoincrement())
+  content                  String
+  createdAt                DateTime?          @default(now())
+  user_id                  Int?
+  user                     User?              @relation(fields: [user_id], references: [id_user])
+  ressource_id             Int?
+  ressource                Ressource?         @relation(fields: [ressource_id], references: [id_ressource])
+}
+
+//***********************************************************//
+
+//************************ FAVORITE ************************//
+model Favorite {
+  id_favorite               Int                @id @default(autoincrement())
+  user_id                  Int?
+  user                     User?              @relation(fields: [user_id], references: [id_user])
+  ressource_id             Int?
+  ressource                Ressource?         @relation(fields: [ressource_id], references: [id_ressource])
+}
+//********************************************************//
+
+//************************ LIKE ************************//
+model Like {
+  id_like                  Int                @id @default(autoincrement())
+  user_id                  Int?
+  user                     User?              @relation(fields: [user_id], references: [id_user])
+  ressource_id             Int?
+  ressource                Ressource?         @relation(fields: [ressource_id], references: [id_ressource])
+}
+//*****************************************************//
+
+//************************ PARTICIPANT ************************//
+model Participant {
+  id_participant          Int                @id @default(autoincrement())
+  user_id                 Int?
+  user                    User?              @relation(fields: [user_id], references: [id_user])
+  ressource_id            Int?
+  ressource               Ressource?         @relation(fields: [ressource_id], references: [id_ressource])
+}

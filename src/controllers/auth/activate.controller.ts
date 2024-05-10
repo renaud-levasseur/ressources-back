@@ -1,55 +1,59 @@
 import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
-import User from '../../models/user.model';
+import { PrismaClient } from '@prisma/client';
 
+const prisma = new PrismaClient();
 
 export const activateAccount = async (req: Request, res: Response) => {
     
     try {
     
-        const user = await User.findOne({
+        const user = await prisma.user.findUnique({
             where: {
-                token_activation: req.body.activationToken
+                tokenActivation: req.body.activationToken
             }
         });
 
         if (!user) {
-            return res.status(404).json({ error: 'Token not found or expired' });
+            return res.status(404).json({ error: 'Token non trouvé ou expiré' });
         }
 
         //Le nouveau mot de passe utilisateur est hashé salé
         const hashedPassword = await bcrypt.hash(req.body.newPassword, 10);
 
         //Update de l'activation et du nouveau mot de passe utilisateur
-        await User.update({
-            password: hashedPassword,
-            isActive: true,
-            tokenActivation: null
-
+        await prisma.user.update({
+            where: { 
+                id_user: user.id_user 
+            },
+            data: {
+                password: hashedPassword,
+                isActive: true,
+                tokenActivation: null
+            }
         },
-        { where: { id: user.userId} }
         );
 
-        res.status(200).json({ message: 'Account activated successfully' });
+        res.status(200).json({ message: 'Compte activé avec succès' });
     
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: 'An error has occurred' });
+        res.status(500).json({ error: 'Une erreur est survenue' });
     }
 }
 
 export const checkActivationToken = async (req: Request, res: Response) => {
 
-    const user = await User.findOne({
+    const user = await prisma.user.findUnique({
         where: {
             tokenActivation: req.body.token
         }
     });
     if (user) {
-        console.log("The token is correct, the user can authenticate.");
+        console.log("Le token est correct, l'utilisateur peut s'authentifier.");
         res.json({success: true});
     } else {
-        console.log('The token is not or no longer correct, so the user cannot authenticate.');
-        res.status(400).json({ success: false, error: 'Invalid activation token'});
+        console.log('Le est incorrect, l\'utilisateur ne peut pas s\'authentifier.');
+        res.status(400).json({ success: false, error: 'Token d\'activation incorrect'});
     }
 }

@@ -1,13 +1,20 @@
 import express from "express";
-import { GetFilesByRessourceId, createRessource, deleteRessource, getRessourceById, getRessources, updateRessource } from "../controllers/ressource.controller";
+import { createRessource, getAllRessources } from "../controllers/ressource.controller";
+import upload from "../middleware/upload.middleware";
+import { CategoryName, RelationName, RessourceTypeName } from "../shared/enums";
 
 const router = express.Router();
 
-router.post('/createRessource', createRessource);
-router.get('/ressources', getRessources);
-router.get('/ressourceFiles/:id', GetFilesByRessourceId);
-router.get('/ressource/:id', getRessourceById);
-router.patch('/updateRessource/:id', updateRessource);
-router.delete('/deleteRessource/:id', deleteRessource);
+router.post('/createRessource/:userId', upload.array('files') , createRessource);
+router.get('/getAllRessources', getAllRessources);
+
+// Get enums ressources
+router.get('/enumsRessource', (_req, res) => { 
+    res.json({
+        categories: Object.values(CategoryName),
+        ressourcesTypes: Object.values(RessourceTypeName),
+        relations: Object.values(RelationName)
+    });
+});
 
 export default router;
