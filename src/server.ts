@@ -10,6 +10,7 @@ import dotenv from 'dotenv';
 import userRouter from './routes/user.router';
 import ressourceRouter from './routes/ressource.router';
 import authRouter from './routes/auth.router';
+import moderationRouter from './routes/moderation.router';
 
 const app = express();
 const bodyParser = require('body-parser');
@@ -40,7 +41,8 @@ app.use(passport.session());
 
 // Routeurs
 app.use(userRouter);
-app.use(ressourceRouter)
+app.use(ressourceRouter);
+app.use(moderationRouter);
 app.use('/auth', authRouter);
 
 app.listen(port, () => {
