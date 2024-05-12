@@ -191,3 +191,66 @@ export const inscriptionUser = async (req: Request, res: Response) => {
     return res.status(500).json({ message: 'Une erreur est survenue lors de l\'inscription' });
   }
 }
+
+/**
+ * Modification d'un utilisateur
+ * @param req 
+ * @param res 
+ * @returns 
+ */
+export const updateUser = async (req: Request, res: Response) => {
+  const id = parseInt(req.params.id);
+  const user = await prisma.user.findUnique({ where: { id_user: id } });
+  const username = req.body.username;
+  const email = req.body.email;
+
+  if (!user) {
+      return res.status(404).json({ message: "Utilisateur introuvable."});
+  }
+  try{
+    const existingUser = await prisma.user.findFirst({
+      where: { 
+          id_user: { not: id }, 
+          OR: [{ username },{ email }]
+      }
+    });
+
+    if (existingUser) {
+        return res.status(400).json({ error: 'Username ou Email déja utilisé'});
+    }
+
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+
+    await prisma.user.update({
+      where: { id_user: id },
+      data:{
+        username: req.body.username,
+        email: req.body.email,
+        password: hashedPassword
+      }
+    });
+
+    res.json(user);
+
+  }catch(error) {
+    console.log(error);
+    res.status(400).json({message:"Erreur lors de la modification de l'utilisateur"});
+  }
+};
+
+/**
+ * Modification d'un utilisateur
+ * @param req 
+ * @param res 
+ * @returns 
+ */
+export const getUserById = async (req: Request, res: Response) => {
+  const id = parseInt(req.params.id);
+  const user = await prisma.user.findUnique({ where: { id_user: id } });
+  
+  if (!user) {
+      return res.status(404).json({message:'Cet utilisateur est introuvable.'});
+  } else {
+      res.send(user);
+  }
+};
