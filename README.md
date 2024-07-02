@@ -15,6 +15,6 @@ Jest
 # Pour lancer le serveur en local
 'npm start'
 
-# Pour lancer les tests avec jest 
+# Pour lancer les tests avec jest
 'npm test' -> Lance tous les tests 
 'npm test [nom du fichier]' -> Lancer un seul test 
