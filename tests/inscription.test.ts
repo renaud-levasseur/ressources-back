@@ -12,7 +12,7 @@ jest.mock('@prisma/client', () => {
     };
   
     return {
-      PrismaClient: jest.fn().mockImplementation(() => mockPrismaClient),
+      PrismaClient: jest.fn().mockImplementation(() => mockPrismaClient), 
     };
 });
 
