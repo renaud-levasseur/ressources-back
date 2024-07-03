@@ -3,7 +3,7 @@ import { inscription } from '../src/controllers/auth/inscription.controller';
 import { PrismaClient } from '@prisma/client';
 
   // Mock Prisma client
-jest.mock('@prisma/client', () => { 
+jest.mock('@prisma/client', () => {  
     const mockPrismaClient = {
       user: { 
         findFirst: jest.fn(),
