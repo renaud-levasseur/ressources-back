@@ -5,7 +5,7 @@ import { PrismaClient } from '@prisma/client';
   // Mock Prisma client
 jest.mock('@prisma/client', () => { 
     const mockPrismaClient = {
-      user: {
+      user: { 
         findFirst: jest.fn(),
         create: jest.fn(),
       },
