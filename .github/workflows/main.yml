@@ -35,7 +35,10 @@ jobs:
           node-version: '18'
 
       - name: Install Prisma CLI
-        run: npm install @prisma
+        run: npm install prisma --save-dev
+      
+      - name: Install Prisma Client
+        run: npm install @prisma/client
 
       - name: Install dependencies
         run: npm install
@@ -61,4 +64,4 @@ jobs:
           AZURE_VM_USER: ${{ secrets.AZURE_USERNAME }}
           AZURE_VM_PASSWORD: ${{ secrets.AZURE_PASSWORD }}
         run: |
-          sshpass -p $AZURE_VM_PASSWORD ssh -o StrictHostKeyChecking=no $AZURE_VM_USER@$AZURE_VM_IP "cd ./ressources-back && docker-compose up -d"
+          sshpass -p $AZURE_VM_PASSWORD ssh -o StrictHostKeyChecking=no $AZURE_VM_USER@$AZURE_VM_IP "bash -s" < ./deploy.sh
