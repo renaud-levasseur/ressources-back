@@ -55,7 +55,7 @@ jobs:
           target: 'http://localhost:3000'
 
       - name: Deploy to Azure VM
-        if: success() && github.ref == 'refs/heads/develop'
+        if: success() && github.ref == 'refs/heads/develop' 
         env:
           AZURE_VM_IP: ${{ secrets.AZURE_SERVER }}
           AZURE_VM_USER: ${{ secrets.AZURE_USERNAME }}
