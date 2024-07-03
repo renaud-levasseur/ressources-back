@@ -1,0 +1,11 @@
+version: '3'
+services:
+  backend:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: "mysql://root@host.docker.internal:3306/ressources_relationnelles_db"
+    volumes:
+      - .:/usr/src/app
+    command: npm start
